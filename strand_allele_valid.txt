@@ -1,0 +1,1008 @@
+<!DOCTYPE HTML>
+<HTML>
+	<HEAD>
+		<TITLE>
+			TOP/BOT Strand and A/B Allele Determination.		 		
+		</TITLE>
+		<style type="text/css">
+		TABLE
+			{
+				border-collapse: seperate;
+				border-spacing: 0;
+				width:100%;
+			}
+		TH,TD
+			{
+				vertical-align: top;
+			}
+		TH
+			{
+
+				text-align:left;
+			}
+		TH.main
+			{
+				background: #404853;
+				text-align:center;
+				background: linear-gradient(#687587, #404853);
+				border-left: 1px solid rgba(0, 0 , 0, 0.6);
+				border-right: 1px solid rgba(255, 255, 255, 0.1);
+				color: #fff;
+				font-size: 12px;
+				padding: 9px 8px 7px 8px;
+				text-shadow: 0 -1px 0 rgba(0, 0 , 0, 0.6);
+				text-transform: uppercase;
+			}
+		TBODY TD
+			{
+				padding: 9px 8px 7px 8px;
+				text-align:center;
+				background: linear-gradient(#f7faf9, #e8eae9);
+				font-size: 11px;
+
+			}
+		TBODY TR:nth-child(even) TD
+			{
+				padding: 9px 8px 7px 8px;
+				text-align:center;
+				background: linear-gradient(#ffffff, #f7faf9);
+				font-size: 11px;
+			}
+
+		.left
+			{
+				float:left;
+				width:254px;
+				margin-right:4px;
+				padding:50px;
+				font-size:11px;
+				text-align:left;
+			}
+
+
+		.error
+			{
+				float:left;
+				width:500px;
+				margin-right:4px;
+				padding:50px;
+				font-size:15px;
+				color:#980000;           
+				text-align:left;
+			}
+
+		.styledropdown
+			{
+				background: #ddd;
+				width:200px;
+				padding:5px;
+				font-size:12px;
+				line-height:1;
+				border:0;
+				border-radius:0;
+				height:30px;
+		
+			}
+		
+		</style>
+
+		
+	</HEAD>
+
+	<BODY>
+
+	<br/><br/>
+	CONSISTENT STRAND AND ALLELE DESIGNATION
+
+			<DIV>
+
+			<DIV class ="left">
+			LEFT<BR/>
+
+				<select class="styledropdown" id="leftvalue" onchange=get_values();>
+
+				<OPTION VALUE="N">SELECT LEFT</OPTION>	
+				<OPTION VALUE="ATGAGTGAAT">ATGAGTGAAT</OPTION>
+				<OPTION VALUE="GGACCCGCAA">GGACCCGCAA</OPTION>
+				<OPTION VALUE="CCGCGCCCTC">CCGCGCCCTC</OPTION>
+				<OPTION VALUE="GGTAGCCTGA">GGTAGCCTGA</OPTION>
+				<OPTION VALUE="TCTTGGGGGGT">TCTTGGGGGGT</OPTION>
+				<OPTION VALUE="TCTTGGGGGGT">TCTTGGGGGGT</OPTION>
+				<OPTION VALUE="AAAAAAAAAA">AAAAAAAAA</OPTION>
+				<OPTION VALUE="TCTTGGGGGGT">TCTTGGGGGGT</OPTION>
+				<OPTION VALUE="TCTTGGGGGGT">TCTTGGGGGGT</OPTION>
+				
+				</select>
+
+			</DIV>
+
+			<DIV class="left">
+			RIGHT<BR/>
+
+				<select class="styledropdown" id="rightvalue" onchange=get_values();>
+
+				<OPTION VALUE="N">SELECT RIGHT</OPTION>
+				<OPTION VALUE="AAGCACTATT">AAGCACTATT</OPTION>
+				<OPTION VALUE="GAGGGCGCGG">GAGGGCGCGG</OPTION>
+				<OPTION VALUE="TTGCGGGTCC">TTGCGGGTCC</OPTION>
+				<OPTION VALUE="ACCCCCAAGA">ACCCCCAAGA</OPTION>
+				<OPTION VALUE="TCAGGCTACC">TCAGGCTACC</OPTION>
+				<OPTION VALUE="TCAGGCTACC">TCAGGCTACC</OPTION>
+				<OPTION VALUE="TTTTTTTT">TTTTTTTTT</OPTION>
+				<OPTION VALUE="zCCCCCAAGA">zCCCCCAAGA</OPTION>
+				<OPTION VALUE="TRYTGGGGGT">TRYTGGGGGT</OPTION>
+				
+				</select>
+
+			</DIV>
+
+			<DIV class="left" >
+			ALLELE<BR/>		
+
+				<select class="styledropdown" id="allelevalue" onchange=get_values();>
+
+				<OPTION VALUE="N">SELECT ALLELE</OPTION>
+				<OPTION VALUE="C/G">C/G</OPTION>
+		  		<OPTION VALUE="G/A">G/A</OPTION>
+				<OPTION VALUE="C/T">C/T</OPTION>
+				<OPTION VALUE="A/T">A/T</OPTION>
+				<OPTION VALUE="A/T">A/T</OPTION>
+				<OPTION VALUE="-/T">-/T</OPTION>
+				<OPTION VALUE="G/A">G/A</OPTION>
+				<OPTION VALUE="A/T">AT</OPTION>
+				<OPTION VALUE="A/T">AT</OPTION>
+
+				</select>
+
+			</DIV>
+
+		</DIV>
+
+		<DIV class ="error" id="error"></DIV>
+
+
+		<TABLE id="myTable">
+		
+			<THEAD>
+			<TR>
+				<TH COLSPAN="7">CONSISTENT STRAND AND ALLELE DESIGNATION</TH>
+			</TR>
+			<TR>
+				<TH class="main">SNP Name</TH>
+				<TH class="main">SEQUENCE</TH>				
+				<TH class="main">Strand Designation</TH>
+				<TH class="main">Allele A</TH>
+				<TH class="main">Allele B</TH>
+				<TH class="main">Original Allele</TH>
+				<TH class="main">Comments</TH>
+				
+			</TR>
+			</THEAD>
+				
+			
+			<TBODY>		
+			<TR>
+			<TD> SNP1_Assembly1</TD>
+			<TD>GGACCCGCAA[G/A]GAGGGGCGCGG	</TD>
+			<TD></TD>
+			<TD> </TD>
+			<TD></TD>
+			<TD></TD>
+			<TD></TD>
+			</TR>
+			
+			</TBODY>
+		 
+	
+		</TABLE>
+		<br>
+
+
+<!***************** JAVSCRIPT BEGIN ********************************************>
+
+<SCRIPT type="text/javascript">
+
+
+//***************** FUNCTION DECLARATIONS *****************************************
+
+
+//***************** FUNCTION TO GET THE VALUES FROM THE DROPDOWN BOX, CHECK IF THEY ARE VALID, CALL THE SIMPLE OR THE COMPLEX CASE FUNCTION *****************************************
+//to get the table values
+
+//to set the table values from javascript
+
+function get_values()
+
+{
+
+	 get_count = 0;
+
+	//get value from the dropdown box for left
+	var drop_left = document.getElementById("leftvalue");
+	var drop_left_value = drop_left.options[drop_left.selectedIndex].value;
+
+	//get value from the dropdown box for right
+	var drop_right = document.getElementById("rightvalue");
+	var drop_right_value = drop_right.options[drop_right.selectedIndex].value;
+
+	//get value from the dropdown box for original allele
+	var drop_allele = document.getElementById("allelevalue");
+	var drop_allele_value = drop_allele.options[drop_allele.selectedIndex].value;
+
+
+
+	if((drop_left_value !='N') && (drop_right_value !='N') && (drop_allele_value !='N'))
+
+	{
+
+
+		org_Allele = drop_allele_value;
+
+		ls_SNP5 = drop_left_value;
+
+		rs_SNP3 = drop_right_value;
+
+		non_format_Allele = org_Allele;
+
+
+		//TO FORMAT THE ALLELE VALUES BY REMOVING THE SLASHES AND TRIMMING IT
+		org_Allele = format(org_Allele);
+
+
+
+		//CHECK IF THE ORGINAL ALLELE IS VALID OR NOT
+		//COMBINE THE ARRAYS THAT CHECKS FOR THE SIMPLE CASE AND COMPLEX CASE AND MAKE IT IN TO A SINGLE ARRAY
+
+		var com_valid_array = valid_Allele.concat(valid_Allele_Ass2);
+
+
+		for (var i=0; i < com_valid_array.length; i++)
+
+
+		{
+
+			if(com_valid_array[i] == org_Allele)
+
+				{
+
+					get_count = get_count + 1;
+
+				}
+
+
+
+		}
+
+		if (get_count != 1)
+
+		{
+
+			err_value = 1;
+			terminate(err_value);
+
+
+		}
+
+
+
+		if (get_count == 1)
+
+		{
+
+		
+			//NO ERROR MESSAGE DISPLAYED WHEN THE DATA IS VALID
+			document.getElementById("error").innerHTML = "";
+
+			//MAKE THE TABLE VISIBLE ONLY IF THERE IS ANY VALID DATA
+			document.getElementById("myTable").style.visibility = "visible";
+
+			//CHECK IF THE ALLELE IS COMPLEX CASE 
+			//CALL THE FUNCTION TO VALIDATE AND DISPLAY RESULT FOR THE COMPLKEX CASE
+
+			for (var j=0; j<valid_Allele_Ass2.length; j++)
+
+			{
+
+				if (valid_Allele_Ass2[j] == org_Allele )
+
+					{
+
+					var basepair = validate_complex(org_Allele);
+
+					//display result for complex case
+					result_complex(basepair);
+
+					}
+
+
+			}
+
+		
+
+
+			//IF SIMPLE CASE EXECUTE THIS FUNCTION
+			validate(org_Allele);
+
+
+		}
+
+		else
+
+			{
+
+
+				//MAKE THE TABLE VISIBLE ONLY IF THERE IS ANY VALID DATA
+				document.getElementById("myTable").style.visibility = "hidden";
+
+
+
+			}
+
+
+
+
+		}
+
+
+
+}
+
+
+//********************************** END FUNCTION GET VALUES **************************************************************************************************************
+
+//************************************ FUNCTION THAT TERMINATES THE PROGRAM EXECUTION AND DISPLAYS THE VALID ERROR MESSAGE ************************************************
+
+function terminate(err_value)
+
+{
+
+	if(err_value == 1)
+
+	{
+
+
+	document.getElementById("error").innerHTML = "INVALID ALLELE VALUE";
+	return;
+
+	}
+
+
+	if(err_value == 2)
+
+	{
+
+
+	document.getElementById("error").innerHTML = "NO AMBIGUOUS BASE PAIR WAS FOUND. REACHED THE END OF LEFT AND RIGHT SEQUENCE.";
+	document.getElementById("myTable").style.visibility = "hidden";
+	return;
+
+	}
+
+
+	if(err_value == 3)
+
+	{
+
+
+	document.getElementById("error").innerHTML = "THE LEFT OR THE RIGHT SEQUENCE HAS AN INVALID CHARACTER.<BR/>[ CHARACTER OTHER THAN ACTG ].";
+	document.getElementById("myTable").style.visibility = "hidden";
+	return;
+
+	}
+
+	if(err_value == 4)
+
+	{
+
+
+	document.getElementById("error").innerHTML = "THE LEFT OR RIGHT SEQUENCE HAS A FASTA CHARACTER. [ V R K Y M S W B D H V N X - ]";
+	document.getElementById("myTable").style.visibility = "hidden";
+	return;
+
+	}
+
+
+
+}
+
+//***************** END FUNCTION **************************************************
+
+//***************** FUNCTION FORMAT ALLELE  ***************************************
+
+//FUNCTION TO REMOVE SLASHES AND TRIM SPACES
+
+
+function format(format_Org_Allele)
+{
+
+format_Org_Allele = format_Org_Allele.replace("/","");
+format_Org_Allele = format_Org_Allele.trim();
+return(format_Org_Allele);
+
+}
+
+
+//************* END FORMAT FUNCTION ***********************************************
+
+
+
+
+//***************** FUNCTION VALIDATE ALLELE **************************************
+
+
+//THIS FUNCTION VALIDATES IF THE ALLELE VALUE IS VALID AND IF THERE IS AT LEAST ONE VALID DATA.
+//IT ALSO CHECKS IF THE VALID ALLELE DATA IS IN THE CORRECT ORDER
+//IF NOT THE STATUS FLAG IS SET TO ALERT THE USER
+
+
+
+function validate(valid_Org_Allele)
+{
+
+counter = 0;
+for (var i=0; i < valid_Allele.length; i++)
+	{
+		
+		// FOR SIMPLE CASE
+		if (valid_Allele[i] == valid_Org_Allele)
+			{
+				
+				counter++;
+			        var a = valid_Org_Allele.indexOf('A');
+				var b = valid_Org_Allele.indexOf('T');                                 
+			
+
+				
+				 if((a == 1) || (b == 0))
+				{
+
+				//status_flag = 1;				
+				var a = valid_Org_Allele.indexOf('A');
+				var b = valid_Org_Allele.indexOf('T');                                	
+				
+				}
+				
+
+
+				//CALL FUNCTION TO DISPLAY RESULT
+				result(valid_Org_Allele,counter,a,b);
+
+					
+                     				
+			}	
+			
+			
+
+	}
+	
+
+	//TO CHECK IF THERE IS ANY INVALID DATA
+	if(counter != 0)
+	{
+
+	//FLAGS THE SIMPLE CASE
+	simple_flag ='S';
+
+	}
+
+
+
+}
+
+//***************** END VALIDATE FUNCTION *****************************************
+
+
+
+
+
+
+
+
+
+//***************** FUNCTION DISPLAY OUTPUT FOR SIMPLE CASE ************************
+
+
+function result(Allele,counter,indexA,indexT)
+{
+
+
+
+
+	if (counter == 1)
+
+		{
+	
+
+
+			//CALCULATING THE INDEX-A AND INDEX-T TO SET THE ALLELE_A AND ALLELE_B AND THE STRAND VALUES
+
+			if (indexA == 0 || indexA == 1 )
+				{
+					strand = 'TOP';
+					allele_A = Allele.charAt(indexA);
+
+					if (indexA == 0) 
+						{
+							allele_B = Allele.charAt(indexA + 1);
+
+						}
+					else
+						{
+							allele_B = Allele.charAt(indexA - 1);
+						}
+
+				}
+
+
+			else if (indexT == 1 || indexT == 0 )
+				{
+
+					strand = 'BOT';
+					allele_A = Allele.charAt(indexT);
+
+					if(indexT == 1)
+						{
+							allele_B = Allele.charAt(indexT - 1);
+						}
+					else
+						{
+							allele_B = Allele.charAt(indexT + 1);
+						}
+
+
+				}
+
+		}
+
+
+	//CONCATENATE THE ALLELE A AND ALLELEB OUPUT AND COMPARING WITH THE ORIGINAL ALLELE 
+	AlleleA_AlleleB = allele_A + allele_B;
+
+
+	if(Allele == AlleleA_AlleleB)
+
+		{
+			//IF THEY MATCH THEN NO WARNING MESSAGE
+			flag = 0;
+	
+
+		}
+
+
+	else if (Allele != AlleleA_AlleleB)
+
+		{
+			//IT THEY DO NOT MATCH THEN FLAG IT TO PROVIDE THE WARNING MESSAGE
+			flag = 1;
+
+
+		}
+
+
+
+	//TO DETERMINE THE ERROR MESSAGE TO BE DISPLAYED
+	//THE FLAG IS SET THE THE ORIGINAL ALLELE ORDER IS NOT CORRECT OR HAS TO BE CHECKED.
+
+	if (flag == 1)
+
+
+		{
+			//WARNING MESSAGE WHEN THE ORIGINAL ALLELE AND THE COMPUTED ALLELE DO NOT MATCH
+			message = error_Msg2;
+			
+		}
+	if (flag == 0)
+		{
+
+			
+
+			message = comment;
+
+		}
+
+
+
+	//DISPLAY RESULT FOR THE SIMPLE CASE
+	display_result(strand,allele_A,allele_B,message);
+
+
+	//end 
+
+
+}
+
+//***************** END DISPLAY RESULT OF SIMPLE CASE ****************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//******************* FUNCTION TO VALIDATE THE COMPLEX CASE ***********************
+
+
+function validate_complex(complex_Org_Allele)
+
+{
+
+
+
+	base_status =0;
+	
+
+	//SPLIT THE VALUE OF THE LEFT AND RIGHT SIDE SEQUENCE AND STORE IT IN THE ARRAY
+	//LEFT SEQUENCE ARRAY IS REVERSED TO FOLLOW THE SEQUENCE WALKING TECHNIQUE
+
+	ls_SNP5_Array = ls_SNP5.split('');
+	ls_SNP5_Array= ls_SNP5_Array.reverse();
+
+
+	//RIGHT SEQUENCE ARRAY
+	rs_SNP3_Array = rs_SNP3.split('');
+
+	//get the length of the LEFT ARRAY
+	lsarray_length = ls_SNP5_Array.length; 
+
+	//GET THE LENGTH OF THE RIGHT ARRAY
+	rsarray_length = rs_SNP3_Array.length; 
+
+
+
+
+	//IF THEY ARE EQUAL THEN THE LENGTH IS THE LENGTH OF THE LEFT ARRAY
+	length_val = lsarray_length;
+
+
+	//IF NOT THEN THE LENGTH IS THE SMALLEST ARRAY LENGTH
+	if ((lsarray_length) < (rsarray_length))
+	{
+
+	length_val = lsarray_length;
+
+	}
+
+	else if((lsarray_length) > (rsarray_length))
+
+	{
+
+
+	length_val = rsarray_length;
+
+	}
+
+
+
+
+	//CREATING THE BASE PAIRS
+	for (var j=0; j < length_val; j++)
+
+		{
+			//BASE PAIR IS CREATED
+			base_pair = ls_SNP5_Array[j] + rs_SNP3_Array[j];
+
+			//CHECK IF THE BASE PAIR CONTAINS ANY INVALID CHARACTERS.
+				
+			var patt = /[^AGTC]/i;
+			var patt_test = base_pair.match(patt);
+
+
+			if(patt_test == null)
+				
+			{
+
+							
+
+
+			for ( var z = 0; z < valid_Allele.length ; z++)
+			{
+                        	// COMPARE THE BASE PAIR WITH VALID ALLELE ARRAY
+				// WHEN MATCH IS FOUND STOP SEQUENCE WALKING
+
+
+
+
+			
+ 				if (valid_Allele[z] == base_pair)
+
+					{
+						
+						base_status = 1;
+						
+						
+						//ONCE MATCH IS FOUND EXIT THE LOOP AND DISPLAY RESULT
+						return(base_pair);
+
+
+					}
+
+			}
+
+			}
+
+			else
+
+			{
+
+			
+                        var FASTA_patt = /[VRYKMSWBDHVNX-]/i;
+			FASTA_patt_check = base_pair.match(FASTA_patt);
+
+			
+
+
+			if (FASTA_patt_check == null)
+			{
+
+			err_value = 3;
+			terminate(err_value);
+
+			}
+			else
+
+			{
+			err_value=4;
+			terminate(err_value);
+
+			}
+
+
+			}
+
+
+
+		}
+
+if (base_status == 0)
+
+{
+err_value = 2;
+
+terminate(err_value);
+
+}
+
+}
+
+//******************* END OF COMPLEX CASE FUNCTION **********************************
+
+
+
+
+
+
+
+
+//***************** FUNCTION DISPLAY OUTPUT FOR COMPLEX CASE ***********************************
+
+function result_complex(basePairValue)
+
+{
+
+//SET THE STATUS IF THE ORDER OF THE ALLELE IS NOT CORRECT
+var status_value = 0;
+
+
+
+
+//getting the index value of the basepair to see if A or T is in the 5" or 3" side
+var a = basePairValue.indexOf('A');
+var t = basePairValue.indexOf('T');
+
+if ((a == 0) || (t == 0))
+	{
+		strand = 'TOP';
+
+		if ((org_Allele == 'AT') || (org_Allele == 'TA'))
+			{
+				allele_A = 'A';
+				allele_B = 'T';
+
+			}
+
+		else if((org_Allele == 'CG') || (org_Allele == 'GC'))
+			{
+				allele_A = 'C';
+				allele_B = 'G';
+
+			}
+
+	}
+
+
+else if((a == 1) || (t == 1))
+
+	{
+
+		strand = 'BOT';
+ 
+		if ((org_Allele == 'AT') || (org_Allele == 'TA'))
+
+			{
+				allele_A = 'T';
+				allele_B = 'A';
+
+			}
+
+		else if((org_Allele == 'CG') || (org_Allele == 'GC'))
+
+			{
+				allele_A = 'G';
+				allele_B = 'C';
+
+			}
+
+
+
+
+
+	}
+
+
+
+
+
+	alleleA_alleleB = allele_A + allele_B;
+
+
+	if (org_Allele == alleleA_alleleB)
+
+		{
+			status_value = 0;
+
+		}
+	else if(org_Allele != alleleA_alleleB)
+		{
+			status_value = 1;
+
+		}
+
+	if (status_value == 1)
+		{
+			message = error_Msg2;			
+
+		}
+
+	else if (status_value == 0)
+
+		{
+
+			message = comment;			
+			
+
+		}
+
+
+
+	
+//DISPLAY RESULT FOR THE SIMPLE CASE
+display_result(strand,allele_A,allele_B,message);
+
+}
+
+
+//***************** END DISPLAY RESULT OF COMPLEX CASE *****************************************
+
+
+
+
+
+
+//***************** FUNCTION TO SWAP THE ALLELE VALUES *****************************************
+
+
+//FUNCTION TO SWAP THE ALLELE VALUE IF IT BELONGS TO THE SPECIAL CASES
+//BUT NOT BEING USED
+function swap(allele_value)
+{
+
+	rev_string = '';
+	for (var j = allele_value.length - 1;j>=0; j--)
+		{
+			rev_string += allele_value[j];
+
+		}
+
+	return (rev_string);
+
+}
+
+//***************** END SWAP FUNCTION ***********************************************************
+
+
+
+
+//************************* DISPLAY RESULT ******************************************
+
+
+function display_result(strand_data,allele_A_data,allele_B_data,message_data)
+{
+
+
+var x=document.getElementById("myTable").rows[2].cells;
+x[1].innerHTML = ls_SNP5 + "[ "+non_format_Allele +" ]"+ rs_SNP3;
+x[2].innerHTML = strand_data;
+x[3].innerHTML = allele_A_data;
+x[4].innerHTML = allele_B_data;
+x[5].innerHTML = non_format_Allele;
+x[6].innerHTML = message_data;
+
+
+}
+
+//************* END DISPLAY RESULT FUNCITON ********************************************
+
+// **************** END ALL FUCNTIONS **************************************************
+
+
+
+
+//********************* BEGIN PROGRAM EXECUTION *************************************************
+
+
+//******************* VARIABLE DECLARATIONS ***************************************************
+
+
+document.getElementById("myTable").style.visibility = "hidden";
+
+//ARRAY TO HOLD THE VALID ALLELE VALUES ASSEMBLY_1
+var valid_Allele = new Array('AG','AC','CA','GA','TC','TG','CT','GT');
+
+//ARRAY TO HOLD THE VALID ALLELE VALUES FOR ASSEMBLY_2
+var valid_Allele_Ass2 = new Array('AT','CG','TA','GC');
+
+err_val = 0;
+
+//THE LEFT SIDE VALUE
+//var ls_SNP5 = 'TCTTGGGGGT';
+
+//THE RIGHT SIDE VALUE
+//var rs_SNP3 = 'TCAGGCTACC';
+
+
+//DECLARING THE ORIGINAL ALLELE VALUE
+//org_Allele = 'A/T';
+
+//NO FORMATTED ALLELE VALUE FOR DISPLAYING
+
+
+//VARIABLE TO FLAG THE ALLELE STATUS
+status = 0;
+
+//VAR TO DISPLAY THE LINE BREAK
+var line_break = "<br>";
+
+//ERROR VALUES
+error_Msg1 = "This is an invalid Allele value.";
+error_Msg2 = "<font color='red'><sup>*</sup>Please check the order of the Allele.</font>";
+comment = "NO COMMENTS";
+
+
+
+
+
+//******************** END VARIABLE DECLARATIONS ***********************************************
+
+
+//********************** END PROGRAM *************************************************************
+
+
+//********************** END JAVA SCRIPT *************************************************************
+
+
+
+
+
+
+	</SCRIPT>
+	
+	</BODY>
+</HTML>
